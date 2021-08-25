@@ -3,7 +3,7 @@ import axios from 'axios'
 //非常非常重要
 axios.defaults.withCredentials=true; //这句代码代表每次发送请求，都把cookie带上
 //后端的域名
-const backendHost = "http://localhost";
+const backendHost = "http://120.48.8.250";
 
 export const postRequest = function (path, data={}) {
     return axios.post(backendHost + path, data)

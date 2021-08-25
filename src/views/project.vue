@@ -40,12 +40,12 @@
         </div>
 
         <div class="home-main-right-menu-user">
-          <el-dropdown>
+          <el-dropdown trigger="click" @command="handleCommand">
           <span class="el-dropdown-link" style="font-size: 18px">
             {{user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item icon="el-icon-user">退出</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-user" command="tui">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -144,7 +144,7 @@
 
 <script>
 // @ is an alias to /src
-import {getUserInfo} from "../request/user";
+import {getUserInfo, logout} from "../request/user";
 import itest from "../assets/itest.png"
 import {createProject, deleteProject, getProjectList, updateProject} from "../request/project";
 
@@ -200,7 +200,7 @@ export default {
     goToMain(){
       this.$router.push('/');
     },
-    getUserInfo(){
+   getUserInfo(){
       getUserInfo().then(rsp=>{
             let success = rsp.data.success
             this.user = rsp.data.data;
@@ -212,7 +212,6 @@ export default {
           )
     },
     handleSelect(key){
-
       switch (key){ //处理右边顶部标题的展示
         case 'Automation':
           this.activeName="自动化";
@@ -306,6 +305,20 @@ export default {
           return false;
         }
       })
+    },
+    Logout(){
+      logout().then(rsp=>{
+        let success = rsp.data.success;
+        if(true===success){
+          this.$router.push('/login')
+        }
+      }).catch(()=>{
+      })
+    },
+    handleCommand(command) {
+      if (command == "tui"){
+        this.Logout()
+      }
     }
   },
   created() {

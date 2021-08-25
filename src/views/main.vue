@@ -41,12 +41,12 @@
         </div>
 
         <div class="home-main-right-menu-user">
-          <el-dropdown>
+          <el-dropdown trigger="click" @command="handleCommand">
           <span class="el-dropdown-link" style="font-size: 18px">
             {{user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item icon="el-icon-user">退出</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-user" command="tui">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -67,7 +67,7 @@
 
 <script>
 // @ is an alias to /src
-import {getUserInfo} from "../request/user";
+import {getUserInfo, logout} from "../request/user";
 import itest from "../assets/itest.png"
 
 export default {
@@ -110,6 +110,20 @@ export default {
         case 'task':
           this.activeName="任务";
           break;
+      }
+    },
+    Logout(){
+      logout().then(rsp=>{
+        let success = rsp.data.success;
+        if(true===success){
+          this.$router.push('/login')
+        }
+      }).catch(()=>{
+      })
+    },
+    handleCommand(command) {
+      if (command == "tui"){
+        this.Logout()
       }
     }
   },
