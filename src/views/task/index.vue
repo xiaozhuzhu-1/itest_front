@@ -387,7 +387,7 @@ export default {
       })
     },
     openReportDetail(report){
-      window.open(`http://localhost/backend/task/${this.currentTask.id}/report/${report.name}/index.html`)
+      window.open(`http://121.41.98.227/backend/task/${this.currentTask.id}/report/${report.name}/`)
     },
     openIntervalRun(){
       if(""===this.currentTask.start_time || null===this.currentTask.start_time){
